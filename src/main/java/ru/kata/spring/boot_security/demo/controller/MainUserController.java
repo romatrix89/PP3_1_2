@@ -16,11 +16,6 @@ public class MainUserController {
     @Autowired
     private UserServiceImpl userService;
 
-//    @GetMapping("/")
-//    public String mainPage() {
-//        return "redirect:/admin";
-//    }
-
     @GetMapping("/user")
     public String userList(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

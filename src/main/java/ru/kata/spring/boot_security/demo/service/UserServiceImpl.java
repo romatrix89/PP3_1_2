@@ -19,7 +19,6 @@ import java.util.*;
 
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserDetailsService {
 
     @PersistenceContext
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
-
+    @Transactional
     public void saveUser(User user) {
         userDao.save(user);
     }
@@ -56,7 +55,6 @@ public class UserServiceImpl implements UserDetailsService {
                 .setHint("javax.persistence.fetchgraph", em.getEntityGraph("graph.User.roles"))
                 .getResultList();
     }
-
 
     @Transactional(readOnly = true)
     public List<Role> getAllRoles() {
@@ -80,6 +78,7 @@ public class UserServiceImpl implements UserDetailsService {
                 .setHint("javax.persistence.fetchgraph", em.getEntityGraph("graph.User.roles"))
                 .getSingleResult();
     }
+    @Transactional
     public void editUser(User user) {
         User userToBeEdit = getUserById(user.getId());
         userToBeEdit.setFirstName(user.getFirstName());
@@ -90,7 +89,7 @@ public class UserServiceImpl implements UserDetailsService {
         userToBeEdit.setPassword(user.getPassword());
         userToBeEdit.setRoles(user.getRoles());
     }
-
+    @Transactional
     public void deleteUserById(long id) {
         userDao.deleteById(id);
     }
