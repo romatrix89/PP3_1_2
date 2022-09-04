@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <link href="../static/style.css" th:href="@{/style.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1>Список пользователей системы</h1>
+<div>
+    <table>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>e-mail</th>
+            <th>Возраст</th>
+            <th>Роли</th>
+            <th>Редактирование</th>
+            <th>Удаление</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.firstName}"></td>
+            <td th:utext="${user.lastName}"></td>
+            <td th:utext="${user.email}"></td>
+            <td th:utext="${user.age}"></td>
+            <td th:utext="${user.toString()}"></td>
+<!--            <td th:utext="${#strings.toString(user.roles)}"></td>-->
+<!--            <td>-->
+<!--                <th:block th:each="role: ${allRoles}" th:text="${role}">-->
+<!--                </th:block>-->
+<!--            </td>-->
+            <td>
+                <form th:action="@{/admin/toEditUser(id=${user.id})}" method="post">
+                    <input type="submit" class="btn" value="Изменить"/>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin/deleteUser(id=${user.id})}" method="post">
+                    <input type="submit" class="btn" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<div>
+    <input type="button" class="btn btn-flat btn-round" value="Добавить нового пользователя"
+           onclick="window.location.href='admin/addNewUser'"/>
+</div>
+<br>
+<div>
+    <input type="button" class="btn btn-flat btn-round" value="Выйти из личного кабинета"
+           onclick="window.location.href='logout'"/>
+</div>
+</body>
+</html>

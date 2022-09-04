@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление нового пользователя</title>
+    <link href="../static/style.css" th:href="@{/style.css}" rel="stylesheet"/>
+</head>
+<body background-color=#2d4d67>
+<h1>Данные нового пользователя</h1>
+<br>
+<form th:method="post" th:action="@{/admin/saveNewUser}" th:object="${user}">
+    <div class="block-user-info">
+        <div>
+            <label>Имя пользователя:</label>
+            <div>
+                <input type="text" th:field="*{firstName}"/>
+            </div>
+        </div>
+        <div>
+            <label>Фамилия пользователя:</label>
+            <div>
+                <input type="text" th:field="*{lastName}"/>
+            </div>
+        </div>
+        <div>
+            <label>E-mail пользователя:</label>
+            <div>
+                <input type="text" th:field="*{email}"/>
+            </div>
+        </div>
+        <div>
+            <label>Возраст пользователя:</label>
+            <div>
+                <input type="text" th:field="*{age}"/>
+            </div>
+        </div>
+        <div>
+            <label>Логин пользователя:</label>
+            <div>
+                <input type="text" th:field="*{username}"/>
+            </div>
+        </div>
+        <div>
+            <label>Пароль пользователя:</label>
+            <div>
+                <input type="password" th:field="*{password}"/>
+            </div>
+        </div>
+
+        <div>
+            <label>Роли пользователя:</label>
+            <div>
+                <th:block th:each="role: ${allRoles}">
+                    <input type="checkbox" th:field="*{roles}"
+                           th:text="${role.name}" th:value="${role.id}"/>
+                </th:block>
+            </div>
+        </div>
+
+    </div>
+    <div class="two-button">
+        <div class="button-block">
+            <input type="submit" class="btn btn-flat btn-round" value="Создать"/>
+        </div>
+        <div class="button-block">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div class="button-block">
+            <input type="button" class="btn btn-flat btn-round" value="Вернуться"
+                   onclick="window.location.href='/admin'"/>
+        </div>
+    </div>
+</form>
+</body>
+</html>
